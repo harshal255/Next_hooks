@@ -16,9 +16,18 @@ const Page = () => {
     //onsubmit method for submiting form
     const submitForm = (e: any) => {
         e.preventDefault();
-        const formData: formData = { email: email, password: password }
-        setAllEntry([...allEntry, formData]);
-        // console.log(allEntry);
+        if (email && password) {
+            // const formData: formData = { email: email, password: password }
+            //after es6+ feature if key & value are same , then no need to write both in object , just write value;
+            const formData: formData = { email, password }
+            setAllEntry([...allEntry, formData]);
+            // console.log(allEntry);
+            //after submiting clear field
+            setEmail("");
+            setPassword("");
+        } else {
+
+        }
     }
 
 
@@ -27,13 +36,13 @@ const Page = () => {
             <form action="" className='bg-gray-950 p-10 mt-24  flex flex-col gap-10 h-[50vh] items-start justify-center border border-gray-900 rounded-xl mt-100' onSubmit={submitForm}>
                 <div className='text-start flex gap-5'>
                     <label htmlFor="email">Email :</label>
-                    <input type="text" name='email' id='email' className='text-black' autoComplete='off' value={email} onChange={(e) => {
+                    <input type="text" name='email' id='email' className=' bg-transparent border' autoComplete='off' value={email} onChange={(e) => {
                         setEmail(e.target.value)
                     }} />
                 </div>
                 <div className='text-start flex gap-5'>
                     <label htmlFor="password">Password :</label>
-                    <input type="text" name='password' id='password' className='text-black' autoComplete='off' value={password} onChange={(e) => { setPassword(e.target.value) }} />
+                    <input type="text" name='password' id='password' className='bg-transparent border' autoComplete='off' value={password} onChange={(e) => { setPassword(e.target.value) }} />
                 </div>
                 <div className="flex items-center justify-center">
                     {/* type = submit for while user press key enter & then automatically click on submit button or automatically submit form */}
@@ -44,8 +53,10 @@ const Page = () => {
             </form>
             {
                 allEntry.map((ele, index) => {
+                    //destructuring
+                    const { email, password } = ele;
                     return <div key={index} className='text-base font-medium text-green-400 border border-pink-100 rounded-lg bg-slate-950 flex gap-2 items-center justify-center p-3'>
-                        Email : {ele.email} & password : {ele.password}</div>
+                        Email : {email} & password : {password}</div>
                 })
             }
 
