@@ -8,7 +8,7 @@ const Page = () => {
     //reactjs given first priority console.log in component & then useEffect function
     useEffect(() => {
         console.log("calling useeffect");
-        document.title = `Chats (${count})`;
+        if (count) document.title = `Chats (${count})`;
 
     })
     return (
